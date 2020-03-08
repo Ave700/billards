@@ -1,0 +1,8 @@
+﻿  ball.cpp
+  Billards.cpp
+  The contents of <filesystem> are only available with C++17 or later.
+C:\Users\Avery\Documents\Code\CS552\TermProject\TermProj\Billards.cpp(48,48): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\Users\Avery\Documents\Code\CS552\TermProject\TermProj\Billards.cpp(49,48): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+  textureloader.cpp
+  Generating Code...
+  TermProj.vcxproj -> C:\Users\Avery\Documents\Code\CS552\TermProject\Debug\TermProj.exe
