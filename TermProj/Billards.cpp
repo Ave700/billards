@@ -78,9 +78,9 @@ void init(void)
 }
 void display()
 {
-    //float currentFrame = glfwGetTime();
-   // deltaTime = currentFrame - lastFrame;
-   // lastFrame = currentFrame;
+    float currentFrame = glutGet(GLUT_ELAPSED_TIME);
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
 
     // input
     // -----
@@ -126,12 +126,15 @@ void display()
         //model = glm::rotate(model, (float)i/2000, glm::vec3(1, 0, 0));
         modelShader.setMat4("model", model);
         ourModel.Draw(modelShader);
-
+        
         glm::mat4 balls = glm::mat4(1.0f);
         for (int i = 0; i < 16; i++)
         {
             ballPos[i] = glm::mat4(1.0f);
-            ballPos[i] = glm::translate(ballPos[i], glm::vec3((float)i/10, 0.0, 0.035f));
+            
+            //printf("deltaTime %f\n", deltaTime/1000);
+            ball[i].timestep(deltaTime/1000);
+            ballPos[i] = glm::translate(ballPos[i], ball[i].position);
             modelShader.setMat4("model", ballPos[i]);
             //model = glm::translate(model, glm::vec3(0.0f, -1.75f, 100.0f));
             ball[i].draw(textures[0]);
@@ -141,6 +144,7 @@ void display()
         
 
         glutSwapBuffers();
+        glutPostRedisplay();
    //}
 
 }
@@ -189,6 +193,10 @@ int main(int argc, char** argv)
     //ourModel = Model(("resources/models/pooltbl.obj"));
     ourModel = Model(("resources/models/pooltbl.obj"));
     
+    for (int i = 0; i < 16; i++) {
+        ball[i].velocity.x = (float)i / 50;
+        ball[i].velocity.y = (float)i / 50;
+    }
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     //glutMouseFunc(mouse);
